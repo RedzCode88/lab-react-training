@@ -26,3 +26,26 @@ code {
 .todo.undone{
   background-color: pink;
 }
+
+.laranjas.normal{
+  background-color: aquamarine;
+}
+
+.laranjas.low{
+  background-color: yellow;
+}
+
+.laranjas.none{
+  background-color: darksalmon;
+}
+
+.laranjas{
+  display: flex;
+  flex-direction: column;
+  padding: 16px 
+}
+
+.laranjas .actions{
+  display: flex;
+  justify-content: center;
+}
