@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const laranjasIniciais = 10;
 
@@ -7,14 +7,14 @@ function Laranjas() {
   const [laranjas, setLaranjas] = useState(10);
 
   const handleClick = () => {
-    console.log('comi uma laranja 🍊 Tenho !!' + getter);
+    console.log('comi uma laranja 🍊 Tenho !!' + laranjas);
     if (laranjas < 0) {
       setLaranjas(laranjas - 1);
     }
   };
 
   const addLaranja = () => {
-    setLaranjas(laranja++);
+    setLaranjas(laranjas++);
   };
 
   const reset = () => {

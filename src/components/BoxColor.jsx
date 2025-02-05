@@ -9,8 +9,10 @@ function BoxColor(props) {
     const hexColor = `${toHex(r)}${toHex(g)}${toHex(b)}`
     
   return (
-    <div>
-        {hexColor}
+    <div className='box-color' style={{backgroundColor: hexColor}}>
+
+        <div>{`rgb(${r})`}</div>
+        <div>{hexColor}</div>
       
     </div>
   )
