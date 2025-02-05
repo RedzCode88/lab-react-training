@@ -2,6 +2,7 @@
 import './App.css';
 import Laranjas from './components/Laranjas';
 import LikeButton from './components/LikeButton';
+import BoxColor from './components/BoxColor';
 
 function App() {
   return (
