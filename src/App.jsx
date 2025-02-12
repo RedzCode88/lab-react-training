@@ -1,111 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { useState } from 'react';
-import todosJSON from './assets/todos.json'
-import Todo from './components/Todo';
+import axios from 'axios';
+
+const url = `https://jsonplaceholder.typicode.com/todos`;
+const url2 = `https://jsonplaceholder.typicode.com/albums`;
 
 function App() {
+  const [todos, setTodos] = useState([]);
 
-  // Inicializar Variáveis
-  const [todos, setTodos] = useState(todosJSON)
-  const [todoTitle, setTodoTitle] = useState("")
+  useEffect(() => {
+    axios.get(url2).then((response) => {
+      console.log('Chamada feita.');
+      setTodos(response.data);
+    });
+  }, []);
 
-  // Código para gerar novo ID com base no ID mais alto que já existe (somado de 1)
-  const newId = () => {
-    let highestTodo = 0
+  return (
+    <div className="App">
+      <h1>Os meus todos</h1>
 
-    todos.forEach(todo => {
-      if (todo.id > highestTodo) {
-        highestTodo = todo.id
-      }
-    })
+      {todos.map(todo => <div key={todo.id}> {todo.title} </div>)}
 
-    return highestTodo + 1
-  }
-
-  // Ao alterar o input, atualizar a variável state
-  const handleChange = (e) => {
-    setTodoTitle(e.target.value)
-  }
-
-  // Toggle Todo - Ao clicar num todo, trocar o "completed"
-  const toggleTodo = (id) => {
-
-    // 1. Criar uma cópia da nossa variável
-    const todosCopy = [...todos]
-
-    // 2. Encontrar o todo com o id selecionado (na cópia)
-    todosCopy.forEach(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-      }
-    })
-
-    // 3. Atualizar a variável "todos" com a cópia *alterada*
-    setTodos(todosCopy)
-  }
-
-  const editTodoTitle = (id, title) => {
-
-    // 1. Criar uma cópia da nossa variável
-    const todosCopy = [...todos]
-
-    // 2. Encontrar o todo com o id selecionado (na cópia)
-    todosCopy.forEach(todo => {
-      if (todo.id === id) {
-        todo.title = title
-      }
-    })
-
-    // 3. Atualizar a variável "todos" com a cópia *alterada*
-    setTodos(todosCopy)
-  }
-
-  const deleteTodo = (id) => {
-    const todosCopy = todos.filter(todo => todo.id !== id)
-    setTodos(todosCopy)
-  }
-
-  // Novo Todo - Ao clicar no botão de submissão, colocar um novo Todo com info do utilizador
-  const handleSubmit = (e) => {
-
-    e.preventDefault()
-
-    if (!todoTitle) return
-
-    const novoTodo = {
-      id: newId(),
-      title: todoTitle,
-      completed: false
-    }
-
-    // Resetar o input após submissão
-    setTodoTitle("")
-
-    // Criar cópia do array com um novo todo e seta-o
-    setTodos([...todos, novoTodo])
-  }
-
-  const todosFeitos = () => todos.filter(todo => todo.completed).length
-
-  return (<div className='App'>
-
-    {/* Colocar a lista de Todos */}
-    {todos.map(todo => <Todo key={todo.id} todo={todo}
-      editTodoTitle={editTodoTitle}
-      deleteTodo={deleteTodo}
-      toggleTodo={toggleTodo}
-    />)}
-
-    {/* Formulário de Submissão de um novo Todo */}
-    <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleChange} value={todoTitle} />
-      <button>Adicionar Todo</button>
-    </form>
-
-    Todos Feitos: {todosFeitos()}
-
-  </div>)
+    </div>
+  );
 }
 
 export default App;
