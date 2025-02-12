@@ -65,3 +65,15 @@ code {
   padding: 6px;
   justify-content: flex-end;
 }
+
+.todo{
+  border: 1px solid black;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.todo.completed{
+  background-color: aquamarine;
+}
